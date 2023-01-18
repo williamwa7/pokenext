@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Card.module.css'
 
-export default function Card({ pokemon }) {
+export default function Card({pokemon}: {pokemon: any;}): JSX.Element {
     return (   
         <div className={styles.card}>
             <Image

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { ReactElement, JSXElementConstructor, ReactFragment, Key } from "react"
 import styles from "../../styles/Pokemon.module.css"
 
 export const getStaticPaths = async() => {
@@ -11,7 +12,7 @@ export const getStaticPaths = async() => {
     const data = await res.json()
 
     // params
-    const paths = data.results.map((pokemon, index) => {
+    const paths = data.results.map((pokemon: any, index: number) => {
         return {
             params: {pokemonId: (index + 1).toString()},
         }
@@ -22,7 +23,7 @@ export const getStaticPaths = async() => {
     }
 }
 
-export const getStaticProps = async(context) => {
+export const getStaticProps = async(context: { params: { pokemonId: any } }) => {
 
     const id = context.params.pokemonId
 
@@ -35,7 +36,7 @@ export const getStaticProps = async(context) => {
     }
 }
 
-export default function Pokemon({pokemon}) {
+export default function Pokemon({pokemon}: {pokemon: any;}): JSX.Element {
     return(
         <div className={styles.pokemon_container}>
             <h1 className={styles.pokemon_title}>{pokemon.name}</h1>
@@ -52,7 +53,7 @@ export default function Pokemon({pokemon}) {
             <div>
                 <h3>Tipo:</h3>
                 <div className={styles.types_container}>
-                    {pokemon.types.map((item, index) =>(
+                    {pokemon.types.map((item: { type: { name: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | ReactFragment | null | undefined } }, index: Key | null | undefined) =>(
                         <span 
                         key={index} 
                         className={`${styles.type} ${styles['type_' + item.type.name]}`}

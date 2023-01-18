@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 
 import Card from '../components/Card'
+import { Key } from 'react'
 
 
 export async function getStaticProps() {
@@ -15,7 +16,7 @@ export async function getStaticProps() {
   const data = await res.json()
 
   // add pokemon index
-  data.results.forEach((item, index) => {
+  data.results.forEach((item: { id: any }, index: number) => {
     item.id = index + 1
   })
 
@@ -26,7 +27,7 @@ export async function getStaticProps() {
   }
 }
 
-export default function Home({ pokemons }) {
+export default function Home({ pokemons }: any): JSX.Element {
   return (
     <>
       <div className={styles.title_container}>
@@ -38,7 +39,7 @@ export default function Home({ pokemons }) {
         alt="PokeNext" />
       </div>
       <div className={styles.pokemon_container}>
-        {pokemons.map((pokemon) => (
+        {pokemons.map((pokemon: { id: Key | null | undefined }) => (
           <Card key={pokemon.id} pokemon={pokemon} />
         ))}
       </div>
